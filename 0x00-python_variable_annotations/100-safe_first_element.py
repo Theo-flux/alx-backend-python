@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""_summary_
+"""
+safe typing the first element of a sequence
 """
 from typing import Sequence, Any, Union, NewType
 
