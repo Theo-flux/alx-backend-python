@@ -9,9 +9,9 @@ def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
     """_summary_
 
     Args:
-        lst (Iterable[Sequence]): _description_
+        lst (Iterable[Sequence]): iterable sequence of arguments
 
     Returns:
-        List[Tuple[Sequence, int]]: _description_
+        List[Tuple[Sequence, int]]: return value
     """
     return [(i, len(i)) for i in lst]
