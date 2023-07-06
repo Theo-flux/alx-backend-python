@@ -1,25 +1,17 @@
 #!/usr/bin/env python3
-"""_summary_
-"""
-from typing import Tuple, List
+'''Task 12's module.
+'''
+from typing import List, Tuple
 
 
-def zoom_array(lst: Tuple, factor: int = 2) -> Tuple:
-    """
-    creates multiple copies of element in a tuple by a factor
-
-    Args:
-        lst (Tuple): _description_
-        factor (int, optional): _description_. Defaults to 2.
-
-    Returns:
-        Tuple: _description_
-    """
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    '''Creates multiple copies of items in a tuple.
+    '''
     zoomed_in: List = [
         item for item in lst
         for i in range(int(factor))
     ]
-    return tuple(zoomed_in)
+    return zoomed_in
 
 
 array = (12, 72, 91)
