@@ -5,10 +5,10 @@ safe typing the first element of a sequence
 from typing import Sequence, Any, Union, NewType
 
 
-NoneType = NewType('NoneType', None)
+# NoneType = NewType('NoneType', None)
 
 
-def safe_first_element(lst: Sequence[Any]) -> Union[Any, NoneType]:
+def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
     """
     Retrieves the first element of a sequence
 
