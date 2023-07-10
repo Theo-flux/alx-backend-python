@@ -5,7 +5,6 @@ running coroutines concurrently
 from typing import List
 import asyncio
 import random
-import time
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
@@ -23,13 +22,8 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
         List[float]: list of delays from the concurrency
     """
     i = random.randint(0, max_delay)
-    time_list = []
-
-    while n > 0:
-        start = time.perf_counter()
-        await wait_random(max_delay)
-        end = time.perf_counter() - start
-        time_list.append(end)
-        n -= 1
+    time_list: List[float] = await asyncio.gather(
+        *(wait_random(max_delay) for i in range(n))
+    )
 
     return time_list
