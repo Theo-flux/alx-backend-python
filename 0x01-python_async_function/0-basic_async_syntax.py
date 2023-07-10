@@ -19,7 +19,7 @@ async def wait_random(max_delay: int = 10) -> float:
     Returns:
         float: return value
     """
-    i = random.randint(0, max_delay + 1)
+    i = random.randint(0, max_delay)
     start = time.perf_counter()
     await asyncio.sleep(i)
     end = time.perf_counter() - start
