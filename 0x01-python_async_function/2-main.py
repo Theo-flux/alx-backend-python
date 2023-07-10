@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import asyncio
+import tracemalloc
 
 measure_time = __import__('2-measure_runtime').measure_time
 
