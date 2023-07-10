@@ -21,9 +21,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     Returns:
         List[float]: list of delays from the concurrency
     """
-    i = random.randint(0, max_delay)
-    time_list: List[float] = await asyncio.gather(
-        *tuple(wait_random(max_delay) for i in range(n))
+    wait_times = await asyncio.gather(
+        *tuple(map(lambda _: wait_random(max_delay), range(n)))
     )
-
-    return sorted(time_list)
+    return sorted(wait_times)
