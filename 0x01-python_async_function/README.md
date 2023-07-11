@@ -34,7 +34,11 @@ Asynchronous programming is language agnostic (i.e it's a principle or concept t
     A concept that multiple processes running together can overlap. A process that starts last can finish ealier than one that started first. processes execute in no particular order interms of when they started, ran and completed. So generaly whenever you talk about threading, you are implying concurrency and whenever you talk about multiprocessing, you are implying parallelism. You can have series of tabs opened on a particular browser like firefox and have them load up their contents in no particular order.
 
 
-
-
-
-    
+## The asyncio library in python
+**coroutine:**
+    A wrapped version of a normal function in python.
+    This is a coroutine:
+    ```python
+    async def func_name():
+        pass
+    ```
