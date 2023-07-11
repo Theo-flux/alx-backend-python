@@ -40,6 +40,14 @@ Asynchronous programming is language agnostic (i.e it's a principle or concept t
     This is a coroutine:
 
     ```py
-    async def func_name():
+    async def main():
         pass
     ```
+**async event-loop:**
+    asyncio.run allows us run a coroutine
+
+    ```py 
+    asyncio.run(main())
+    ```
+
+
