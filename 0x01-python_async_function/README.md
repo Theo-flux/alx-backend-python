@@ -49,5 +49,3 @@ Asynchronous programming is language agnostic (i.e it's a principle or concept t
     ```py 
     asyncio.run(main())
     ```
-
-
