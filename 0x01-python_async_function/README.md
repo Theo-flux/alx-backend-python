@@ -38,6 +38,7 @@ Asynchronous programming is language agnostic (i.e it's a principle or concept t
 **coroutine:**
     A wrapped version of a normal function in python.
     This is a coroutine:
+    
     ```python
     async def func_name():
         pass
