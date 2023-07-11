@@ -9,6 +9,6 @@ import random
 
 async def async_generator() -> AsyncGenerator[float, None]:
 
-    for i in range(10):
+    for _ in range(10):
         await asyncio.sleep(1)
-        yield round(random.uniform(0, 10), 15)
+        yield random.random() * 10
