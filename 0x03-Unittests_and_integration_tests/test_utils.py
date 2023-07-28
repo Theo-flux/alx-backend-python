@@ -73,12 +73,12 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @patch('utils.requests.get')
+    @patch('utils.requests')
     def test_get_json(
         self,
         test_url: str,
         test_payload: TypedTestPayload,
-        mocked_requests_get
+        mocked_requests
     ):
         """
         test case for utils.get_json
@@ -86,14 +86,14 @@ class TestGetJson(unittest.TestCase):
         Args:
             test_url (str): test url
             test_payload TypedTestPayload: test payload
-            mocked_requests_get (_type_): mocked requests.get
+            mocked_requests (_type_): mocked requests package
         """
         mocked_response = MagicMock()
         mocked_response.json.return_value = test_payload
-        mocked_requests_get.return_value = mocked_response
+        mocked_requests.get.return_value = mocked_response
 
         self.assertEqual(get_json(test_url), test_payload)
-        mocked_requests_get.assert_called_once_with(test_url)
+        mocked_requests.get.assert_called_once_with(test_url)
 
 
 if __name__ == "__main__":
