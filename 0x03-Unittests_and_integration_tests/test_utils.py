@@ -93,7 +93,6 @@ class TestGetJson(unittest.TestCase):
 
         self.assertEqual(get_json(test_url), test_payload)
         mocked_requests_get.assert_called_once_with(test_url)
-        
 
 
 if __name__ == "__main__":
