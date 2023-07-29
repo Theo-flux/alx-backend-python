@@ -14,22 +14,20 @@ TypedTestPayload = TypedDict('TypedTestPayload', {'payload': bool})
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """
-    test suite for utils.access_nested_map function
-    """
+    """Tests the `access_nested_map` function."""
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
-        ({"a": {"b": 2}}, ("a", "b"), 2)
+        ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(
-        self,
-        nested_map: Dict,
-        path: Tuple[str],
-        output: Union[int, Dict]
-    ) -> None:
-        """utils.access_nested_map function"""
-        self.assertEqual(access_nested_map(nested_map, path), output)
+            self,
+            nested_map: Dict,
+            path: Tuple[str],
+            expected: Union[Dict, int],
+            ) -> None:
+        """Tests `access_nested_map`'s output."""
+        self.assertEqual(access_nested_map(nested_map, path), expected)
 
     # @parameterized.expand([
     #     ({}, ("a",), KeyError('a')),
