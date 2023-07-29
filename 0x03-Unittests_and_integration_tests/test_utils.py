@@ -15,10 +15,7 @@ TypedTestPayload = TypedDict('TypedTestPayload', {'payload': bool})
 
 class TestAccessNestedMap(unittest.TestCase):
     """
-    test suite for utils.access_nested_map method
-
-    Args:
-        unittest (_type_): _description_
+    test suite for utils.access_nested_map function
     """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
@@ -32,67 +29,64 @@ class TestAccessNestedMap(unittest.TestCase):
         output: Union[int, Dict]
     ) -> None:
         """
-        test case for utils.access_nested_map method
+        test case for utils.access_nested_map function
 
         Args:
-            nested_map (dict): A parametarzed nested map
-            path (Tuple[str]): A parametarzed sqeuence of key
+            nested_map (dict): A parameterized nested map
+            path (Tuple[str]): A parameterized sqeuence of key
             output (Union[int, Dict]): output value from tested function
         """
         self.assertEqual(access_nested_map(nested_map, path), output)
 
-    # @parameterized.expand([
-    #     ({}, ("a",), KeyError('a')),
-    #     ({"a": 1}, ("a", "b"), KeyError('b')),
-    # ])
-    # def test_access_nested_map_exception(
-    #     self,
-    #     nested_map: Mapping,
-    #     path: Sequence,
-    #     output: Any
-    # ) -> None:
-    #     """
-    #     test case for utils.get_json method
+    @parameterized.expand([
+        ({}, ("a",), KeyError('a')),
+        ({"a": 1}, ("a", "b"), KeyError('b')),
+    ])
+    def test_access_nested_map_exception(
+        self,
+        nested_map: Dict,
+        path: Tuple[str],
+        output: Union[int, Dict]
+    ) -> None:
+        """
+        test case for utils.get_json function
 
-    #     Args:
-    #         nested_map (Mapping): A parametarzed nested map
-    #         path (Sequence): A parametarzed sqeuence of key
-    #         output (Any): output value from tested function
-    #     """
-    #     self.assertRaises(KeyError, access_nested_map, nested_map, path)
+        Args:
+            nested_map (Mapping): A paramterized nested map
+            path (Sequence): A parameterized sqeuence of key
+            output (Any): output value from tested function
+        """
+        self.assertRaises(KeyError, access_nested_map, nested_map, path)
 
 
-# class TestGetJson(unittest.TestCase):
-#     """
-#     Test suite for utils.get_json method
+class TestGetJson(unittest.TestCase):
+    """
+    Test suite for utils.get_json function
+    """
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    @patch.object(requests, 'get')
+    def test_get_json(
+        self,
+        test_url: str,
+        test_payload: TypedTestPayload,
+        mocked_requests_get
+    ):
+        """
+        test case for utils.get_json function
 
-#     Args:
-#         unittest (_type_): _description_
-#     """
-#     @parameterized.expand([
-#         ("http://example.com", {"payload": True}),
-#         ("http://holberton.io", {"payload": False})
-#     ])
-#     @patch.object(requests, 'get')
-#     def test_get_json(
-#         self,
-#         test_url: str,
-#         test_payload: TypedTestPayload,
-#         mocked_requests_get
-#     ):
-#         """
-#         test case for utils.get_json
+        Args:
+            test_url (str): test url
+            test_payload TypedTestPayload: test payload
+            mocked_requests (_type_): mocked requests package
+        """
+        mocked_response = MagicMock(**{"json.return_value": test_payload})
+        mocked_requests_get.return_value = mocked_response
 
-#         Args:
-#             test_url (str): test url
-#             test_payload TypedTestPayload: test payload
-#             mocked_requests (_type_): mocked requests package
-#         """
-#         mocked_response = MagicMock(**{"json.return_value": test_payload})
-#         mocked_requests_get.return_value = mocked_response
-
-#         self.assertEqual(get_json(test_url), test_payload)
-#         mocked_requests_get.assert_called_once_with(test_url)
+        self.assertEqual(get_json(test_url), test_payload)
+        mocked_requests_get.assert_called_once_with(test_url)
 
 
 if __name__ == "__main__":
