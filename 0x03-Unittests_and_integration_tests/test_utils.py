@@ -3,7 +3,7 @@
 python test file for utils module
 """
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, Mock
 from parameterized import parameterized
 from typing import Mapping, Sequence, Any, TypedDict
 
@@ -88,7 +88,7 @@ class TestGetJson(unittest.TestCase):
             test_payload TypedTestPayload: test payload
             mocked_requests (_type_): mocked requests package
         """
-        mocked_response = MagicMock()
+        mocked_response = Mock()
         mocked_response.json.return_value = test_payload
         mocked_requests.get.return_value = mocked_response
 
