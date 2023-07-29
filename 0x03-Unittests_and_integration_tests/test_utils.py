@@ -5,7 +5,7 @@ python test file for utils module
 import unittest
 from unittest.mock import patch, MagicMock
 from parameterized import parameterized
-from typing import Tuple, Union, TypedDict, Doct
+from typing import Tuple, Union, TypedDict, Dict
 
 from utils import requests, access_nested_map, get_json
 
@@ -29,15 +29,15 @@ class TestAccessNestedMap(unittest.TestCase):
         self,
         nested_map: Dict,
         path: Tuple[str],
-        output: Union[int, Mapping]
+        output: Union[int, Dict]
     ) -> None:
         """
         test case for utils.access_nested_map method
 
         Args:
-            nested_map (Mapping): A parametarzed nested map
-            path (Sequence): A parametarzed sqeuence of key
-            output (Any): output value from tested function
+            nested_map (dict): A parametarzed nested map
+            path (Tuple[str]): A parametarzed sqeuence of key
+            output (Union[int, Dict]): output value from tested function
         """
         self.assertEqual(access_nested_map(nested_map, path), output)
 
