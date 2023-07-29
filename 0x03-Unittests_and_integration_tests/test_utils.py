@@ -3,11 +3,11 @@
 python test file for utils module
 """
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import patch, MagicMock
 from parameterized import parameterized
 from typing import Mapping, Sequence, Any, TypedDict
 
-from utils import access_nested_map, get_json
+from utils import requests, access_nested_map, get_json
 
 
 TypedTestPayload = TypedDict('TypedTestPayload', {'payload': bool})
@@ -73,12 +73,12 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @patch('utils.requests')
+    @patch.object(requests, 'get')
     def test_get_json(
         self,
         test_url: str,
         test_payload: TypedTestPayload,
-        mocked_requests
+        mocked_requests_get
     ):
         """
         test case for utils.get_json
@@ -88,12 +88,12 @@ class TestGetJson(unittest.TestCase):
             test_payload TypedTestPayload: test payload
             mocked_requests (_type_): mocked requests package
         """
-        mocked_response = Mock()
-        mocked_response.json.return_value = test_payload
-        mocked_requests.get.return_value = mocked_response
+        mocked_response = MagicMock(**{"json.return_value": test_payload})
+        mocked_requests_get.return_value = mocked_response
 
         self.assertEqual(get_json(test_url), test_payload)
-        mocked_requests.get.assert_called_once_with(test_url)
+        mocked_requests_get.assert_called_once_with(test_url)
+        
 
 
 if __name__ == "__main__":
