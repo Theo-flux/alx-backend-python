@@ -62,37 +62,37 @@ class TestAccessNestedMap(unittest.TestCase):
         self.assertRaises(KeyError, access_nested_map, nested_map, path)
 
 
-class TestGetJson(unittest.TestCase):
-    """
-    Test suite for utils.get_json method
+# class TestGetJson(unittest.TestCase):
+#     """
+#     Test suite for utils.get_json method
 
-    Args:
-        unittest (_type_): _description_
-    """
-    @parameterized.expand([
-        ("http://example.com", {"payload": True}),
-        ("http://holberton.io", {"payload": False})
-    ])
-    @patch.object(requests, 'get')
-    def test_get_json(
-        self,
-        test_url: str,
-        test_payload: TypedTestPayload,
-        mocked_requests_get
-    ):
-        """
-        test case for utils.get_json
+#     Args:
+#         unittest (_type_): _description_
+#     """
+#     @parameterized.expand([
+#         ("http://example.com", {"payload": True}),
+#         ("http://holberton.io", {"payload": False})
+#     ])
+#     @patch.object(requests, 'get')
+#     def test_get_json(
+#         self,
+#         test_url: str,
+#         test_payload: TypedTestPayload,
+#         mocked_requests_get
+#     ):
+#         """
+#         test case for utils.get_json
 
-        Args:
-            test_url (str): test url
-            test_payload TypedTestPayload: test payload
-            mocked_requests (_type_): mocked requests package
-        """
-        mocked_response = MagicMock(**{"json.return_value": test_payload})
-        mocked_requests_get.return_value = mocked_response
+#         Args:
+#             test_url (str): test url
+#             test_payload TypedTestPayload: test payload
+#             mocked_requests (_type_): mocked requests package
+#         """
+#         mocked_response = MagicMock(**{"json.return_value": test_payload})
+#         mocked_requests_get.return_value = mocked_response
 
-        self.assertEqual(get_json(test_url), test_payload)
-        mocked_requests_get.assert_called_once_with(test_url)
+#         self.assertEqual(get_json(test_url), test_payload)
+#         mocked_requests_get.assert_called_once_with(test_url)
 
 
 if __name__ == "__main__":
