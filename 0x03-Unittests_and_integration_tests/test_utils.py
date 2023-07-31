@@ -117,7 +117,3 @@ class TestMemoize(unittest.TestCase):
             self.assertEqual(my_object.a_property(), 42)
             self.assertEqual(my_object.a_property(), 42)
             self.assertEqual(mocked_a_method.call_count, 1)
-
-
-if __name__ == "__main__":
-    unittest.main()
