@@ -5,8 +5,8 @@ from unittest.mock import patch, MagicMock
 from parameterized import parameterized
 from typing import (
     Tuple,
+    Dict,
     Union,
-    TypedDict,
     Dict
 )
 import utils
@@ -15,9 +15,6 @@ from utils import (
     get_json,
     memoize
 )
-
-
-TypedTestPayload = TypedDict('TypedTestPayload', {'payload': bool})
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -78,7 +75,7 @@ class TestGetJson(unittest.TestCase):
     def test_get_json(
         self,
         test_url: str,
-        test_payload: TypedTestPayload,
+        test_payload: Dict,
         mocked_requests_get
     ):
         """
