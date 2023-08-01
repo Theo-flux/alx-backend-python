@@ -8,13 +8,13 @@ from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """Test suite for GithubOrgClient class"""
+    """Test suite for githuborgclient class"""
     @parameterized.expand([
         ('google'),
         ('abc')
     ])
-    @patch('client.get_json')
-    def test_org(self, org_name: str, mocked_get_json: MagicMock):
-        """test case for GithubOrgClient.org method"""
-        test_gh_client = GithubOrgClient(org_name)
-
+    @patch('client.GithubOrgClient')
+    def test_org(self, org_name, mocked_github_org_client):
+        mocked_github_org_client(org_name)
+        mocked_github_org_client.return_value.org.return_value = False
+        mocked_github_org_client.assert_called_once_with(org_name)
