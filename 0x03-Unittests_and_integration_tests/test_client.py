@@ -1,4 +1,4 @@
-#!/usr//bin/env python3
+#!/usr/bin/env python3
 """test module for client.py"""
 import unittest
 from unittest.mock import patch, MagicMock
