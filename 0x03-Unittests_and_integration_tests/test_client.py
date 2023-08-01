@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from parameterized import parameterized
-from typing import (Dict)
+from typing import Dict
 
 from client import GithubOrgClient
 
@@ -19,7 +19,7 @@ class TestGithubOrgClient(unittest.TestCase):
         self,
         org_name: str,
         out: Dict,
-        mocked_get_json: MagicMock
+        mocked_get_json
     ) -> None:
         """
         test case for client.githubClientOrg.org() method
