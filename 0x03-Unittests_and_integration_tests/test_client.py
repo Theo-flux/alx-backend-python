@@ -99,7 +99,14 @@ class TestGithubOrgClient(unittest.TestCase):
         license_key: str,
         expected: bool
     ) -> None:
-        """test case for has_license method"""
+        """
+        test case for has_license method
+
+        Args:
+            repo (Dict): _description_
+            license_key (str): _description_
+            expected (bool): _description_
+        """
         test_gh_license = GithubOrgClient('google')
         test_repo_license = test_gh_license.has_license(repo, license_key)
         self.assertIsNotNone(test_repo_license)
