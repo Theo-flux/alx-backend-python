@@ -3,14 +3,13 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from parameterized import parameterized
-import requests
 from typing import (
     Tuple,
     Union,
     TypedDict,
     Dict
 )
-
+import utils
 from utils import (
     access_nested_map,
     get_json,
@@ -75,7 +74,7 @@ class TestGetJson(unittest.TestCase):
         ("http://example.com", {"payload": True}),
         ("http://holberton.io", {"payload": False})
     ])
-    @patch.object(requests, 'get')
+    @patch.object(utils.requests, 'get')
     def test_get_json(
         self,
         test_url: str,

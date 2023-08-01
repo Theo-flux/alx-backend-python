@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """Generic utilities for github org client.
 """
@@ -11,6 +10,7 @@ from typing import (
     Dict,
     Callable,
 )
+
 
 __all__ = [
     "access_nested_map",
