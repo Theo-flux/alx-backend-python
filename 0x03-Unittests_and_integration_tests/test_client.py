@@ -44,7 +44,10 @@ class TestGithubOrgClient(unittest.TestCase):
             new_callable=PropertyMock
         ) as mock_org:
 
-            repo = {'repos_url': 'https://api.github.com/orgs/google/repos'}
+            repo = {
+                'login': 'google',
+                'repos_url': 'https://api.github.com/orgs/google/repos'
+            }
             mock_org.return_value = repo
 
             self.assertEqual(
