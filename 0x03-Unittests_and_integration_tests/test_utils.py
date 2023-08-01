@@ -98,6 +98,7 @@ class TestMemoize(unittest.TestCase):
     test suite for utils.memoize function
     """
     def test_memoize(self):
+        """test case for utils.memoize function"""
         class TestClass:
 
             def a_method(self):
