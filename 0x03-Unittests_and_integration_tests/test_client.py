@@ -57,6 +57,12 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mocked_get_json):
+        """
+        test case for public_repos
+
+        Args:
+            mocked_get_json (_type_): _description_
+        """
         list_of_public_repos = [
             {'name': 'truth'},
             {'name': 'multi-servers'},
