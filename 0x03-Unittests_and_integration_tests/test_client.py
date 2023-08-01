@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """test module for client.py"""
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, PropertyMock
 from parameterized import parameterized
 from typing import Dict
 
@@ -36,3 +36,18 @@ class TestGithubOrgClient(unittest.TestCase):
         mocked_get_json.assert_called_once_with(
             f'https://api.github.com/orgs/{org_name}'
         )
+
+    def test_public_repos_url(self) -> None:
+        """test case for protected _public_repos_url"""
+        with patch(
+            'client.GithubOrgClient.org',
+            new_callable=PropertyMock
+        ) as mock_org:
+
+            repo = {'repos_url': 'https://api.github.com/orgs/google/repos'}
+            mock_org.return_value = repo
+
+            self.assertEqual(
+                GithubOrgClient('google')._public_repos_url,
+                repo['repos_url']
+            )
