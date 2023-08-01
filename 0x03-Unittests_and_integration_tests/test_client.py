@@ -54,3 +54,31 @@ class TestGithubOrgClient(unittest.TestCase):
                 GithubOrgClient('google')._public_repos_url,
                 repo['repos_url']
             )
+
+    @patch('client.get_json')
+    def test_public_repos(self, mocked_get_json):
+        list_of_public_repos = [
+            {'name': 'truth'},
+            {'name': 'multi-servers'},
+            {'name': 'ar'}
+        ]
+        mocked_get_json.return_value = list_of_public_repos
+
+        with patch(
+            'client.GithubOrgClient._public_repos_url',
+            new_callable=PropertyMock
+        ) as mocked_public_url:
+            org_res = {
+                'login': 'google',
+                'repos_url': 'https://api.github.com/orgs/google/repos'
+            }
+            public_repos = ['truth', 'multi-servers', 'ar']
+
+            mocked_public_url._public_repos_url = org_res['repos_url']
+            self.assertEqual(
+                GithubOrgClient('google').public_repos(),
+                public_repos
+            )
+            self.assertEqual(mocked_public_url.call_count, 1)
+
+        self.assertEqual(mocked_get_json.call_count, 1)
