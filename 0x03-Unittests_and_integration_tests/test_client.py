@@ -170,12 +170,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             )
 
     @patch('client.get_json')
-    def test_public_repos_with_license(self) -> None:
+    def test_public_repos_with_license(self, license_key="apache-2.0") -> None:
         """
-        test case for public_repos
+        test case for public_repos with license key
 
         Args:
-            mocked_get_json (_type_): _description_
+            license_key (str): _description_
         """
         mocked_get_json.return_value = repos_payload
 
@@ -185,7 +185,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         ) as mocked_public_url:
             mocked_public_url._public_repos_url = org_payload
             self.assertEqual(
-                GithubOrgClient('google').public_repos(license="apache-2.0"),
+                GithubOrgClient('google').public_repos(license_key),
                 apache2_repos
             )
 
