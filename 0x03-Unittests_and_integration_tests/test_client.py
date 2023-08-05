@@ -4,7 +4,7 @@ import unittest
 import requests
 from requests import get, HTTPError
 from unittest.mock import patch, MagicMock, PropertyMock
-from parameterized import parameterized_class, parameterized
+from parameterized import parameterized, parameterized_class
 from typing import Dict
 
 from client import GithubOrgClient
@@ -148,6 +148,46 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         get_patcher.side_effect = payload_url
         cls.patcher = get_patcher
         cls.patcher.start()
+
+    @patch('client.get_json')
+    def test_public_repos(self, mocked_get_json):
+        """
+        test case for public_repos
+
+        Args:
+            mocked_get_json (_type_): _description_
+        """
+        mocked_get_json.return_value = repos_payload
+
+        with patch(
+            'client.GithubOrgClient._public_repos_url',
+            new_callable=PropertyMock
+        ) as mocked_public_url:
+            mocked_public_url._public_repos_url = org_payload
+            self.assertEqual(
+                GithubOrgClient('google').public_repos(),
+                expected_repos
+            )
+
+    @patch('client.get_json')
+    def test_public_repos_with_license(self) -> None:
+        """
+        test case for public_repos
+
+        Args:
+            mocked_get_json (_type_): _description_
+        """
+        mocked_get_json.return_value = repos_payload
+
+        with patch(
+            'client.GithubOrgClient._public_repos_url',
+            new_callable=PropertyMock
+        ) as mocked_public_url:
+            mocked_public_url._public_repos_url = org_payload
+            self.assertEqual(
+                GithubOrgClient('google').public_repos(license="apache-2.0"),
+                apache2_repos
+            )
 
     @classmethod
     def tearDownClass(cls):

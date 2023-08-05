@@ -948,4 +948,3 @@ TEST_PAYLOAD = [
     ['dagger', 'kratu', 'traceur-compiler', 'firmata.py'],
   )
 ]
-print(TEST_PAYLOAD[0][0])
