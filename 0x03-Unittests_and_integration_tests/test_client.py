@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """test module for client.py"""
 import unittest
+import requests
+from requests import get, HTTPError
 from unittest.mock import patch, MagicMock, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized_class, parameterized
 from typing import Dict
 
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -31,8 +34,8 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         mocked_get_json.return_value = MagicMock()
         mocked_get_json.return_value.return_value = out
-        test_github_org_client = GithubOrgClient(org_name)
-        self.assertEqual(test_github_org_client.org(), out)
+        github_org_client = GithubOrgClient(org_name)
+        self.assertEqual(github_org_client.org(), out)
         mocked_get_json.assert_called_once_with(
             f'https://api.github.com/orgs/{org_name}'
         )
@@ -107,6 +110,45 @@ class TestGithubOrgClient(unittest.TestCase):
             license_key (str): _description_
             expected (bool): _description_
         """
-        test_gh_license = GithubOrgClient('google')
-        test_repo_license = test_gh_license.has_license(repo, license_key)
-        self.assertEqual(test_repo_license, expected)
+        gh_client = GithubOrgClient('google')
+        repo_license = gh_client.has_license(repo, license_key)
+        self.assertEqual(repo_license, expected)
+
+
+@parameterized_class(
+    (
+        "org_payload",
+        "repos_payload",
+        "expected_repos",
+        "apache2_repos"
+    ),
+    [(
+        TEST_PAYLOAD[0][0],
+        TEST_PAYLOAD[0][1],
+        TEST_PAYLOAD[0][2],
+        TEST_PAYLOAD[0][3],
+    )]
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    Integration test for GithubOrgClient
+
+    Args:
+        unittest (_type_): _description_
+    """
+    @classmethod
+    def setUpClass(cls):
+
+        def payload_url(url):
+            if url == cls.org_payload or url == cls.repos_payload:
+                return MagicMock(**{'json.return_value': url})
+            return HTTPError
+
+        get_patcher = patch('requests.get')
+        get_patcher.side_effect = payload_url
+        cls.patcher = get_patcher
+        cls.patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+       cls.patcher.stop()
